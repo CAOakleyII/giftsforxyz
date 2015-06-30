@@ -3,13 +3,22 @@
     max-width: 100%;
 }
 .home-search-form{
-    max-width:380px;
+    max-width:290px;
 }
 .home-content {
-    margin: 100px 0 150px 0;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 .footer {
     bottom: 0;
     width: 100%;
     margin-top: 75px;
+    color: rgba(0,0,0,0.5);
+}
+.footer-header {
+    color: rgba(0,0,0,0.7);
+}
+.copyright{
+    color: rgba(0, 0, 0,.3);
+    font-size: smaller;
 }
