@@ -1,0 +1,15 @@
+/* CSS declarations go here */
+.scalable-image {
+    max-width: 100%;
+}
+.home-search-form{
+    max-width:380px;
+}
+.home-content {
+    margin: 100px 0 150px 0;
+}
+.footer {
+    bottom: 0;
+    width: 100%;
+    margin-top: 75px;
+}

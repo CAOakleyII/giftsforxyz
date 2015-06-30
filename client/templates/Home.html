@@ -1,0 +1,20 @@
+<template name="Home">
+    {{> navBar }}
+    <div class="home-content">
+        <div>
+            <img src="/img/scaledFullLogo.jpg" alt="Gifts For X - Find perfect gifts for anyone." class="scalable-image center-block"/>
+        </div>
+
+        <div class="center-block home-search-form">
+            <form class="form-group home-search" role="search">
+                <div class="input-group input-group-appended">
+                    <input type="text" class="form-control" name="searchedTag" placeholder="e.g. Girlfriend">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success">Go!</button>
+                    </span>
+        </div>
+            </form>
+        </div>
+    </div>
+    {{> footer }}
+</template>
