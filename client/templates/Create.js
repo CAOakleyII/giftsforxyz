@@ -32,6 +32,7 @@ Template.Create.events({
         $('#divImgPreview').html(imgTag);
     },
     'submit #gift-create' : function(event){
+        
         var gift = new Gift();
         gift.directLink = event.target.directLink.value,
         gift.name = event.target.name.value,
@@ -39,8 +40,8 @@ Template.Create.events({
         gift.imageUrl = event.target.imageURL.value,
         gift.description =  event.target.description.value,
         gift.tags = [];
-
-
+        
+        return false;
     }
 });
 
