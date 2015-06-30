@@ -8,4 +8,8 @@ Template.Home.events({
         Router.go('/Gifts/For/' + event.target.searchedTag.value);
         return false;
     }
-})
+});
+
+Template.Home.onRendered(function() {
+   $('.nav-search').hide();
+});

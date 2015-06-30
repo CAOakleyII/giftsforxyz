@@ -1,41 +1,42 @@
-﻿
-$('#imageURL').blur(function () {
-    var url = $('#imageURL').val();
-    var imgTag = '<img id="imgPreview" src="' + url + '" class="max-size-image" />';
-    $('#divImgPreview').html(imgTag);
-
-});
-
-
 var GiftInfo = {};
-var pageHTML;
 
-$('#directLink').blur(function () {
-    $('#leftArrow').addClass('hide');
-    $('#rightArrow').addClass('hide');
+Template.Create.events({
+    'blur #directLink' : function() {
+        $('#leftArrow').addClass('hide');
+        $('#rightArrow').addClass('hide');
 
-    if ($('#DirectLink').val().trim() == "")
-    {
-        return;
-    }
-    
-    GiftInfo.directLink = $('#directLink').val();
-    $('#fetchingData').modal('toggle')
-    $.ajaxPrefilter(function (options) {
-        if (options.crossDomain && jQuery.support.cors) {
-            var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-            options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-            //options.url = "http://cors.corsproxy.io/url=" + options.url;
+        var linkURL = $('#directLink').val();
+        if (linkURL.trim() == "")
+        {
+            return;
         }
-    });
 
-    $.get(GiftInfo.directLink, parseDirectLinkResponse);
+
+
+        $('#fetchingData').modal('toggle')
+
+        $.ajaxPrefilter(function (options) {
+            if (options.crossDomain && jQuery.support.cors) {
+                var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+                options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+                //options.url = "http://cors.corsproxy.io/url=" + options.url;
+            }
+        });
+
+        $.get(linkURL, parseDirectLinkResponse);
+    },
+    'blur #imageURL' : function(){
+        var url = $('#imageURL').val();
+        var imgTag = '<img id="imgPreview" src="' + url + '" class="scalable-image" />';
+        $('#divImgPreview').html(imgTag);
+    }
 });
+
 
 function parseDirectLinkResponse(data) {
-    
+
     pageHTML = data;
-    GiftInfo.directLink = $('#DirectLink').val();
+    GiftInfo.directLink = $('#directLink').val();
     GiftInfo.productName = "";
     GiftInfo.price = "";
     GiftInfo.img = "";
@@ -75,7 +76,7 @@ function parseDirectLinkResponse(data) {
             if (image.width > 130 && image.height > 130) {
 
                 if (GiftInfo.images.indexOf(image) == -1) {
-                    
+
                     image.index = index;
                     if (image.alt != "") {
                         image.productName = image.alt;
@@ -87,7 +88,7 @@ function parseDirectLinkResponse(data) {
                         image.productName = "";
                     }
                     GiftInfo.images.push(image);
-                    
+
                     index++;
                 }
             }
@@ -117,7 +118,7 @@ function parseDirectLinkResponse(data) {
             $('#rightArrow').on('click', rightClick);
 
             if (GiftInfo.images.length > 1) {
-                // show arrows            
+                // show arrows
                 $('#leftArrow').removeClass('hide');
                 $('#rightArrow').removeClass('hide');
             }
@@ -136,7 +137,7 @@ function loadGiftData() {
 }
 
 function leftClick() {
-    
+
     var index = $('#ImageURL').data('index');
 
     if (index == 0) {
@@ -156,7 +157,7 @@ function leftClick() {
 
 }
 function rightClick() {
-    
+
     var index = $('#ImageURL').data('index');
 
     if (index == (GiftInfo.images.length - 1)) {
