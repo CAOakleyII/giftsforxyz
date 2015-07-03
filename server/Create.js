@@ -1,8 +1,6 @@
 
 Meteor.methods({
-  create: function(gift){
-    
-    //
-    return Contacts.insert(contact);
+  createGift: function(gift){
+    return Gifts.insert(gift);
   }
 });

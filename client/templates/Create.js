@@ -1,7 +1,7 @@
 var GiftInfo = {};
 
 
-Template.Create.events({
+Template.create.events({
     'blur #directLink' : function() {
         $('#leftArrow').addClass('hide');
         $('#rightArrow').addClass('hide');
@@ -34,13 +34,19 @@ Template.Create.events({
     'submit #gift-create' : function(event){
         
         var gift = new Gift();
-        gift.directLink = event.target.directLink.value,
-        gift.name = event.target.name.value,
-        gift.price = event.target.price.value,
-        gift.imageUrl = event.target.imageURL.value,
-        gift.description =  event.target.description.value,
+        gift.directLink = event.target.directLink.value;
+        gift.name = event.target.name.value;
+        gift.price = event.target.price.value;
+        gift.imageUrl = event.target.imageURL.value;
+        gift.description =  event.target.description.value;
         gift.tags = [];
-        
+
+        Meteor.call('createGift',
+            { gift: gift},
+            function(error, result){
+                console.log(result);
+                Router.go('gifts/' + result);
+        });
         return false;
     }
 });
