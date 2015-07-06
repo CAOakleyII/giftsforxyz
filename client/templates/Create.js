@@ -28,11 +28,15 @@ Template.create.events({
         gift.imageUrl = event.target.imageURL.value;
         gift.description =  event.target.description.value;
         gift.tags = [];
+        event.target.nonParsedTags.value.trim().split("#").forEach(function(element, index, array){
+            if(element.trim() !== "") {
+                gift.tags.push(element.trim().toLowerCase());
+            }
+        });
 
         Meteor.call('createGift',
-            { gift: gift},
+            gift,
             function(error, result){
-                console.log(result);
                 Router.go('/gifts/' + result);
         });
         return false;

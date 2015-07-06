@@ -5,16 +5,16 @@
 
         <div class="card-content">
             <!-- Display Image -->
-            <a href="{{gift.directLink}} ">
+            <a href="{{directLink}} ">
                 <div class="card-image">
 
-                        <img id="imageDisplay" src="{{gift.imageUrl}}" alt="imageDisplay" class="gift-image" />
+                        <img id="imageDisplay" src="{{imageUrl}}" alt="imageDisplay" class="gift-image" />
 
                         <!-- Display Name -->
                         <div class="card-title">
                             <label class="gift-name">
                                 <p id="nameDisplay">
-                                    {{ gift.name }}
+                                    {{ name }}
                                 </p>
                             </label>
                         </div>
@@ -26,7 +26,7 @@
                 <div>
                     <p>
                         <label id="priceDisplay" class="gift-price">
-                        {{gift.price}}
+                        {{price}}
                         </label>
                     </p>
                 </div>
@@ -34,7 +34,7 @@
                 <!-- Description -->
                 <div class="gift-description">
                     <label id="descriptionDisplay" class="gift-description">
-                        {{ gift.description }}
+                        {{ description }}
                     </label>
                 </div>
 
