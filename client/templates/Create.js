@@ -2,16 +2,28 @@ var GiftInfo = {};
 
 
 Template.create.events({
-    'click #retryFetch' : function(){
+    'click #retryFetch' : function(event){
+        event.preventDefault();
         $('#errorFetching').modal('toggle');
         fetchDataFromUrl();
     },
-    'blur #directLink' : function() {
+    'blur #directLink' : function(event) {
+        event.preventDefault();
        fetchDataFromUrl();
+    },
+    'click .btnFetchData' : function(event) {
+        event.preventDefault();
+        fetchDataFromUrl();
     },
     'blur .extra-data input' : function()
     {
         loadDisplayData();
+    },
+    'mouseenter .btnFetchData' : function(event) {
+        $(event.target).addClass('fa-spin');
+    },
+    'mouseleave .btnFetchData' : function() {
+        $(event.target).removeClass('fa-spin');
     },
     'keyup .extra-data #price' : function(){
         loadDisplayData();

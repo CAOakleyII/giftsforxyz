@@ -26,7 +26,7 @@
                 <div>
                     <p>
                         <label id="priceDisplay" class="gift-price">
-                        {{price}}
+                        {{ priceFormated }}
                         </label>
                     </p>
                 </div>
@@ -40,18 +40,22 @@
 
                 <!--  Tags -->
                 <div>
-                    <label id="tagsDisplay" class="gift-tags" ></label>
+                    <label id="tagsDisplay" class="gift-tags">
+                        {{#each tags}}
+                            <a href="/gifts/for/{{this}}" >#{{ this }}</a>
+                        {{/each}}
+                    </label>
                 </div>
             </div>
 
             <div class="card-action">
-                    <span class="down-vote">
-                        <a href="#"><i class="fa fa-arrow-down"></i></a>
-                    </span>
+                    <a href="#">
+                        <i class="down-vote fa fa-arrow-down"></i>
+                    </a>
 
-                    <span class="up-vote">
-                        <a href="#"><i class="fa fa-arrow-up"></i></a>
-                    </span>
+                    <a href="#">
+                        <i class="up-vote fa fa-arrow-up"></i>
+                    </a>
             </div>
         </div>
 

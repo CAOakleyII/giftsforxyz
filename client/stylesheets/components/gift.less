@@ -63,7 +63,7 @@ div.card{
   }
 
   div.gift-description {
-    height: 194px;
+    height: 170px;
     overflow-y: overlay;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -77,17 +77,35 @@ div.card{
     color: @gift-supportive-text-color;
   }
 
-  span.up-vote
+  i.up-vote
   {
+    font-size:1.9rem;
+    color: @brand-color-blue;
     float: right;
-   margin-right: 30px;
+    margin-right: 30px;
   }
-  span.down-vote
+  i.down-vote
   {
+    font-size: 1.9rem;
+    color: @brand-color-red;
     margin-left: 30px;
   }
 }
 
+label.gift-tags {
+  overflow: hidden;
+  height: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  a {
+    color: @brand-color-blue;
+
+    &:hover {
+      color: @brand-color-yellow;
+    }
+  }
+}
 
 div.gift-card {
   margin-left: auto;
