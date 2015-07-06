@@ -1,0 +1,105 @@
+@import "../variables.less";
+
+div.card{
+  overflow: hidden;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #fff;
+  transition: box-shadow 0.25s;
+  border-radius: 2px;
+  height: 500px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+  div.card-content {
+    width: 100%;
+  }
+
+  div.card-image {
+    height: 200px;
+    text-align: center;
+
+    div.card-title {
+
+      label.gift-name{
+        color: #fff;
+        font-size: 1.5rem;
+        font-weight: 300;
+        background-color: @gift-title-background-color;
+        display: flex;
+        padding: 3px 10px;
+        margin-top: -30px;
+        position: relative;
+
+        p {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin: 0;
+        }
+      }
+    }
+    img.gift-image {
+      max-height: 100%;
+    }
+  }
+
+  label {
+    font-family:'Roboto', sans-serif;
+  }
+
+  div.card-support-text {
+    padding: 16px;
+    height: 250px
+  }
+
+  div.card-action {
+    border-top: 1px solid @gift-content-border-color;
+    height: 50px;
+    padding-top: 15px;
+  }
+
+  div.gift-description {
+    height: 194px;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  label.gift-price {
+    font-weight: 500;
+    color: @gift-subheader-text-color;
+  }
+  label.gift-description {
+    color: @gift-supportive-text-color;
+  }
+
+  span.up-vote
+  {
+    float: right;
+   margin-right: 30px;
+  }
+  span.down-vote
+  {
+    margin-left: 30px;
+  }
+}
+
+div.gift-card {
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (min-width: @screen-xs-min) {
+    width: 90%;
+    max-width: @gift-card-max-width-xs;
+    display: block;
+  }
+  @media (min-width: @screen-mid-min) {
+    display: inline-flex;
+    width: 31%;
+    margin-left: 1%;
+    margin-right: 1%;
+  }
+  @media (min-width: 1920px) {
+    width: 22%;
+  }
+}

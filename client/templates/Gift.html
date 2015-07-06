@@ -1,3 +1,58 @@
 <template name="gift">
-    {{ gift.name }}
+
+
+    <div class="card gift-card">
+
+        <div class="card-content">
+            <!-- Display Image -->
+            <div class="card-image">
+                <a href="#">
+                    <img id="imageDisplay" src="{{gift.imageUrl}}" alt="imageDisplay" class="gift-image" />
+
+                    <!-- Display Name -->
+                    <div class="card-title">
+                        <label class="gift-name">
+                            <p id="nameDisplay">
+                                {{ gift.name }}
+                            </p>
+                        </label>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card-support-text">
+                <!-- Price -->
+                <div>
+                    <p>
+                        <label id="priceDisplay" class="gift-price">
+                        {{gift.price}}
+                        </label>
+                    </p>
+                </div>
+
+                <!-- Description -->
+                <div class="gift-description">
+                    <label id="descriptionDisplay" class="gift-description">
+                        {{ gift.description }}
+                    </label>
+                </div>
+
+                <!--  Tags -->
+                <div>
+                    <label id="tagsDisplay" class="gift-tags" ></label>
+                </div>
+            </div>
+
+            <div class="card-action">
+                    <span class="down-vote">
+                        <a href="#"><i class="fa fa-arrow-down"></i></a>
+                    </span>
+
+                    <span class="up-vote">
+                        <a href="#"><i class="fa fa-arrow-up"></i></a>
+                    </span>
+            </div>
+        </div>
+
+    </div>
 </template>

@@ -12,8 +12,6 @@ Template.create.events({
             return;
         }
 
-
-
         $('#fetchingData').modal('toggle')
 
         $.ajaxPrefilter(function (options) {
@@ -26,10 +24,15 @@ Template.create.events({
 
         $.get(linkURL, parseDirectLinkResponse);
     },
-    'blur #imageURL' : function(){
-        var url = $('#imageURL').val();
-        var imgTag = '<img id="imgPreview" src="' + url + '" class="scalable-image" />';
-        $('#divImgPreview').html(imgTag);
+    'blur .extra-data input' : function()
+    {
+        loadDisplayData();
+    },
+    'keyup .extra-data #price' : function(){
+        loadDisplayData();
+    },
+    'keyup .extra-data textarea' : function(){
+        loadDisplayData();
     },
     'submit #gift-create' : function(event){
         
@@ -45,7 +48,7 @@ Template.create.events({
             { gift: gift},
             function(error, result){
                 console.log(result);
-                Router.go('gifts/' + result);
+                Router.go('/gifts/' + result);
         });
         return false;
     }
@@ -128,9 +131,9 @@ function parseDirectLinkResponse(data) {
             }
 
             GiftInfo.img = image.src;
-            GiftInfo.productName = image.productName
+            GiftInfo.productName = image.productName;
             // add index of image
-            $('#ImageURL').data('index', image.index)
+            $('#imageURL').data('index', image.index);
 
             // register click event
             $('#leftArrow').on('click', leftClick);
@@ -142,9 +145,14 @@ function parseDirectLinkResponse(data) {
                 $('#rightArrow').removeClass('hide');
             }
         }
+
+        if (GiftInfo.images.length <= 0) {
+            $('#errorFetching').modal('toggle');
+        }
     }
     loadGiftData();
-    $('#fetchingData').modal('toggle')
+    loadDisplayData();
+    $('#fetchingData').modal('toggle');
 }
 
 function loadGiftData() {
@@ -152,12 +160,22 @@ function loadGiftData() {
     $('#price').val(GiftInfo.price.replace(/\s+/g, '').trim().replace("$", ""));
     $('#imageURL').val(GiftInfo.img.trim());
     $('#description').val(GiftInfo.description.trim());
-    $('#imageURL').trigger('blur');
+    $('.extra-data').fadeIn();
+}
+
+function loadDisplayData() {
+
+    $('#nameDisplay').text($('#name').val().trim());
+    $('#priceDisplay').text($('#price').val().replace(/\s+/g, '').trim().replace("$", ""));
+    $('#imageDisplay').attr('src', $('#imageURL').val().trim());
+    $('#descriptionDisplay').text( $('#description').val().trim());
+
+    $('.preview-data').fadeIn();
 }
 
 function leftClick() {
 
-    var index = $('#ImageURL').data('index');
+    var index = $('#imageURL').data('index');
 
     if (index == 0) {
         index = GiftInfo.images.length - 1;
@@ -170,14 +188,15 @@ function leftClick() {
 
     GiftInfo.productName = image.alt;
     GiftInfo.img = image.src;
-    $('#ImageURL').data('index', image.index);
+    $('#imageURL').data('index', image.index);
 
     loadGiftData();
+    loadDisplayData();
 
 }
 function rightClick() {
 
-    var index = $('#ImageURL').data('index');
+    var index = $('#imageURL').data('index');
 
     if (index == (GiftInfo.images.length - 1)) {
         index = 0;
@@ -190,8 +209,9 @@ function rightClick() {
 
     GiftInfo.productName = image.alt;
     GiftInfo.img = image.src;
-    $('#ImageURL').data('index', image.index);
+    $('#imageURL').data('index', image.index);
 
     loadGiftData();
+    loadDisplayData();
 
 }

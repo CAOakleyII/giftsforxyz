@@ -1,5 +1,6 @@
 <template name="create">
 
+    <!-- fetching data modal -->
     <div id="fetchingData"  class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content modal-sm center-block">
@@ -18,88 +19,165 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
 
+
+    <!-- sorry couldn't find anything modal -->
+    <div id="errorFetching"  class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content modal-sm center-block">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title"><i class="fa fa-exclamation-triangle"></i>  Sorry!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        We were unable to retrieve any data from that link. You can enter the gift below.
+                    </p>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <div class="row">
-    <div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-2">
-        <h1>Create A Gift</h1>
-        <form id="gift-create">
-            <div class="form-horizontal">
-                <hr />
+        <div class="col-xs-8 col-xs-offset-2 col-md-4 col-md-offset-2">
+            <h1>Recommend A Gift</h1>
 
-                <h3> Direct Link </h3>
+            <hr />
 
-                <div class="row">
-                    <div class="col-xs-offset-1 col-xs-10 col-md-offset-0 col-md-12" id="directLinkExplained">
+            <div class="row">
+                <div class="col-xs-offset-1 col-xs-10 col-md-12" id="directLinkExplained">
+                    <p>
                         <i> Simply add a URL for the gift and we will try to fill all the information we can. </i>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <div class="col-md-offset-2 col-lg-3 direct-link-arrow-fix">
-                        <button id="leftArrow" class="btn btn-primary hide" type="button"> Back </button>
-                        <button id="rightArrow" class="btn btn-primary direct-link-next-button-fix hide" type="button"> Next </button>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="directLink" class="control-label col-md-2" >Direct Link</label>
-                    <div class="col-md-10">
-                        <input id="directLink" type="text" name="directLink" class="form-control" placeholder="e.g. http://www.amazon.com/Fitbit-Flex-Accessory-Slate-Large/dp/B00IREZGI2/" />
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="name" class="control-label col-md-2">Name</label>
-                    <div class="col-md-10">
-                        <input id="name" type="text" name="name" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="price" class="control-label col-md-2">Price</label>
-                    <div class="col-md-10">
-                        <input id="price" type="text" name="price" class="form-control" />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="imageURL" class="control-label col-md-2">Image URL</label>
-                    <div class="col-md-10">
-                        <input id="imageURL" type="imageURL" name="price" class="form-control" />
-                    </div>
-                    <div id="divImgPreview" class="col-xs-3">
-                    </div>
-                    <div class="col-md-8"></div>
-                </div>
-
-                <div class="form-group">
-                    <label for="description" class="control-label col-md-2">Description</label>
-                    <div class="col-md-10">
-                        <textarea id="description" name="description" class="form-control" rows="3" ></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="nonParsedTags" class="control-label col-md-2">Tags</label>
-                    <div class="col-md-10">
-                        <input id="nonParsedTags" type="text" name="nonParsedTags" class="form-control" placeholder="eg. #Gamers #SportsLovers #Artist"/>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-10 col-md-offset-2">
-                        <div class="g-recaptcha" data-sitekey="6Lc7VwgTAAAAAHrwYUSaT2kwwYnPOWFljI960eNo"></div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Create" class="btn btn-success" />
-                    </div>
+                    </p>
                 </div>
             </div>
 
-        </form>
+            <form id="gift-create">
+                <div class="form-horizontal">
+
+
+                    <div class="form-group">
+                        <label for="directLink" class="control-label col-md-2"><b>Direct Link</b></label>
+                        <div class="col-md-10">
+                            <input id="directLink" type="text" name="directLink" class="form-control" placeholder="e.g. http://www.amazon.com/Fitbit-Flex-Accessory-Slate-Large/dp/B00IREZGI2/" />
+                        </div>
+                    </div>
+
+                    <div class="extra-data">
+                        <div class="form-group">
+                            <label for="name" class="control-label col-md-2">Name</label>
+                            <div class="col-md-10">
+                                <input id="name" type="text" name="name" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price" class="control-label col-md-2">Price</label>
+                            <div class="col-md-10">
+                                <input id="price" type="text" name="price" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageURL" class="control-label col-md-2">Image URL</label>
+                            <div class="col-md-10">
+                                <input id="imageURL" type="imageURL" class="form-control" />
+                            </div>
+                            <div class="col-md-8"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="control-label col-md-2">Description</label>
+                            <div class="col-md-10">
+                                <textarea id="description" name="description" class="form-control" rows="3" ></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nonParsedTags" class="control-label col-md-2">Tags</label>
+                            <div class="col-md-10">
+                                <input id="nonParsedTags" type="text" name="nonParsedTags" class="form-control" placeholder="eg. #Gamers #SportsLovers #Artist"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="g-recaptcha" data-sitekey="6Lc7VwgTAAAAAHrwYUSaT2kwwYnPOWFljI960eNo"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+        <div class="preview-data">
+             <h3> Preview </h3>
+
+            <div class="card gift-card">
+
+                <div class="card-content">
+                    <!-- Display Image -->
+                    <div class="card-image">
+                        <a href="#">
+                            <img id="imageDisplay" src="" class="gift-image" />
+
+                            <!-- Display Name -->
+                            <div class="card-title">
+                                <label class="gift-name">
+                                    <p id="nameDisplay">
+
+                                    </p>
+                                </label>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card-support-text">
+                        <!-- Price -->
+                        <div>
+                            <p>
+                                <label id="priceDisplay" class="gift-price">
+
+                                </label>
+                            </p>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="gift-description">
+                            <label id="descriptionDisplay" class="gift-description">
+                            </label>
+                        </div>
+
+                        <!--  Tags -->
+                        <div>
+                            <label id="tagsDisplay" class="gift-tags" ></label>
+                        </div>
+                    </div>
+
+                    <div class="card-action">
+                        <span class="down-vote">
+                            <a href="#"><i class="fa fa-arrow-down"></i></a>
+                        </span>
+
+                        <span class="up-vote">
+                            <a href="#"><i class="fa fa-arrow-up"></i></a>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-md-offset-2 col-lg-3 direct-link-arrow-fix">
+                    <button id="leftArrow" class="btn btn-primary hide" type="button"> Back </button>
+                    <button id="rightArrow" class="btn btn-primary direct-link-next-button-fix hide" type="button"> Next </button>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    {{> footer }}
 </template>
