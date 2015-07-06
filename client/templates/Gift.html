@@ -5,20 +5,21 @@
 
         <div class="card-content">
             <!-- Display Image -->
-            <div class="card-image">
-                <a href="#">
-                    <img id="imageDisplay" src="{{gift.imageUrl}}" alt="imageDisplay" class="gift-image" />
+            <a href="{{gift.directLink}} ">
+                <div class="card-image">
 
-                    <!-- Display Name -->
-                    <div class="card-title">
-                        <label class="gift-name">
-                            <p id="nameDisplay">
-                                {{ gift.name }}
-                            </p>
-                        </label>
-                    </div>
-                </a>
-            </div>
+                        <img id="imageDisplay" src="{{gift.imageUrl}}" alt="imageDisplay" class="gift-image" />
+
+                        <!-- Display Name -->
+                        <div class="card-title">
+                            <label class="gift-name">
+                                <p id="nameDisplay">
+                                    {{ gift.name }}
+                                </p>
+                            </label>
+                        </div>
+                </div>
+            </a>
 
             <div class="card-support-text">
                 <!-- Price -->

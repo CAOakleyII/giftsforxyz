@@ -1,7 +1,13 @@
+@import "variables.less";
 body {
     background-color:#e8e8e8 !important;
 }
 
+a:hover, a:focus
+{
+    // god damn you boot strap.
+    text-decoration: none !important;
+}
 /* CSS declarations go here */
 .scalable-image {
     max-width: 100%;
@@ -10,8 +16,20 @@ body {
     max-width:290px;
 }
 .home-content {
-    margin-top: 10%;
+    margin-top: 3%;
     margin-bottom: 10%;
+
+    p.gifts-for-xyz-logo {
+        font-size: 8rem;
+
+        span.y{
+            font-size: 8.5rem;
+        }
+        span.z{
+            font-size: 7rem;
+        }
+    }
+
 }
 .footer {
     bottom: 0;
@@ -25,4 +43,21 @@ body {
 .copyright{
     color: rgba(0, 0, 0,.3);
     font-size: smaller;
+}
+.gifts-for-xyz-logo {
+    font-family:'Roboto', sans-serif;
+}
+span.x {
+    background-color: transparent;
+    color: @brand-color-blue;
+}
+span.y {
+    background-color: transparent;
+    color: @brand-color-yellow;
+
+}
+span.z {
+    background-color: transparent;
+    color: @brand-color-red;
+
 }

@@ -26,6 +26,7 @@ nav.page-navbar {
         }
     }
 
+
     a.brand {
         background-color:@navbar-brand-color;
         color:white;
@@ -50,10 +51,31 @@ nav.page-navbar {
         font-family:'Roboto', sans-serif;
         color:#212121;
 
+        span.x {
+            color:white;
+        }
+        span.y {
+            color:white;
+        }
+        span.z {
+            color:white;
+        }
+
         &:hover {
             text-decoration: none;
             transition:all 0.3s ease-out;
             box-shadow:0px -3px 4px inset #424242;
+            background-color: @navbar-brand-color-hover;
+
+            span.x {
+                color: @brand-color-blue;
+            }
+            span.y {
+                color: @brand-color-yellow;
+            }
+            span.z {
+                color: @brand-color-red;
+            }
         }
     }
 }
