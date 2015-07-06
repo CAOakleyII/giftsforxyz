@@ -2,27 +2,12 @@ var GiftInfo = {};
 
 
 Template.create.events({
+    'click #retryFetch' : function(){
+        $('#errorFetching').modal('toggle');
+        fetchDataFromUrl();
+    },
     'blur #directLink' : function() {
-        $('#leftArrow').addClass('hide');
-        $('#rightArrow').addClass('hide');
-
-        var linkURL = $('#directLink').val();
-        if (linkURL.trim() == "")
-        {
-            return;
-        }
-
-        $('#fetchingData').modal('toggle')
-
-        $.ajaxPrefilter(function (options) {
-            if (options.crossDomain && jQuery.support.cors) {
-                var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
-                options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
-                //options.url = "http://cors.corsproxy.io/url=" + options.url;
-            }
-        });
-
-        $.get(linkURL, parseDirectLinkResponse);
+       fetchDataFromUrl();
     },
     'blur .extra-data input' : function()
     {
@@ -54,7 +39,28 @@ Template.create.events({
     }
 });
 
+function fetchDataFromUrl(){
+    $('#leftArrow').addClass('hide');
+    $('#rightArrow').addClass('hide');
 
+    var linkURL = $('#directLink').val();
+    if (linkURL.trim() == "")
+    {
+        return;
+    }
+
+    $('#fetchingData').modal('toggle')
+
+    $.ajaxPrefilter(function (options) {
+        if (options.crossDomain && jQuery.support.cors) {
+            var http = (window.location.protocol === 'http:' ? 'http:' : 'https:');
+            options.url = http + '//cors-anywhere.herokuapp.com/' + options.url;
+            //options.url = "http://cors.corsproxy.io/url=" + options.url;
+        }
+    });
+
+    $.get(linkURL, parseDirectLinkResponse);
+}
 function parseDirectLinkResponse(data) {
 
     pageHTML = data;
