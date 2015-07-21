@@ -31,7 +31,7 @@ Template.create.events({
     'keyup .extra-data textarea' : function(){
         loadDisplayData();
     },
-    'submit #gift-create' : function(event){
+    'submit #gift-create' : function(event){ 
         
         var gift = new Gift();
         gift.directLink = event.target.directLink.value;
