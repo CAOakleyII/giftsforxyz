@@ -35,6 +35,11 @@ Template.create.events({
         loadDisplayData();
     },
     'submit #gift-create' : function(event){
+        event.preventDefault();
+
+        if ($('#gift-create .has-error').length) {
+          return false;
+        }
 
         var gift = new Gift();
         gift.directLink = event.target.directLink.value;
@@ -49,10 +54,19 @@ Template.create.events({
             }
         });
 
+         var captchaData = grecaptcha.getResponse();
+
         Meteor.call('createGift',
             gift,
+            captchaData,
             function(error, result){
-                Router.go('/gifts/' + result);
+              if(error){
+                console.log(error.reason);
+                return;
+              }
+              // reset the captcha
+              grecaptcha.reset();
+              Router.go('/gifts/' + result);
         });
         return false;
     }
@@ -233,7 +247,6 @@ function parseDirectLinkResponse(data) {
                 $('#rightArrow').removeClass('hide');
             }
         }
-        console.log('here');
 
         // No image, and we haven't retried yet
         if(!GiftInfo.images.length && !ForcedRetry)

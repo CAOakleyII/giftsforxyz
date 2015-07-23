@@ -7,3 +7,5 @@
 meteor-platform
 iron:router
 less
+altapp:recaptcha
+twbs:bootstrap
