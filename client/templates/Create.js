@@ -1,10 +1,13 @@
 var GiftInfo = {};
-
+// for some reason when parsing data for the first time, checking the height and width somtimes returns undefined
+// but it always corrects itself the second time, very weird, but spent too much time trying to find out why.
+// will just force a retry if the array returned is empty, after that second attempt just let it go through with out.
+var ForcedRetry = false;
 
 Template.create.events({
     'click #retryFetch' : function(event){
         event.preventDefault();
-        $('#errorFetching').modal('toggle');
+        $('.modal-backdrop').fadeOut();
         fetchDataFromUrl();
     },
     'blur #directLink' : function(event) {
@@ -31,8 +34,8 @@ Template.create.events({
     'keyup .extra-data textarea' : function(){
         loadDisplayData();
     },
-    'submit #gift-create' : function(event){ 
-        
+    'submit #gift-create' : function(event){
+
         var gift = new Gift();
         gift.directLink = event.target.directLink.value;
         gift.name = event.target.name.value;
@@ -88,6 +91,7 @@ function parseDirectLinkResponse(data) {
     GiftInfo.vendorsProductId = "";
     GiftInfo.images = [];
 
+    // customized data mining
     if (GiftInfo.directLink.indexOf("amazon.com") > -1) {
 
         GiftInfo.productName = $(pageHTML).find('span#productTitle').length == 1 ? $(pageHTML).find('span#productTitle').text() : "";
@@ -108,11 +112,66 @@ function parseDirectLinkResponse(data) {
         GiftInfo.img = $(pageHTML).find(".mainImage").prop('src');
     }
 
+    // generic based on meta tags
+    // Dig for Title
+    var metaTitle = findFirst($(pageHTML), '[property="og:title"]');
+    var itemPropName = findFirst($(pageHTML), '[itemprop=name]');
+    if(metaTitle.length)
+    {
+      GiftInfo.productName = metaTitle.attr('content');
+    } else if (itemPropName.length)
+    {
+      GiftInfo.productName = itemPropName.text() ? itemPropName.text() : itemPropName.attr('content');
+    } else {
+      GiftInfo.productName = $(pageHTML).find('title').text();
+    }
+
+    // Dig for Image
+    var metaImage = findFirst($(pageHTML), '[property="og:image"]');
+    var itemPropImage = findFirst($(pageHTML), '[itemprop=image]');
+    if (metaImage.length)
+    {
+      GiftInfo.img = metaImage.attr('content');
+    } else if (itemPropImage.length) {
+      GiftInfo.img = itemPropImage.attr('content');
+    }
+    var initialImage = GiftInfo.img;
+
+    // Dig for URL
+    var metaUrl = findFirst($(pageHTML), '[property="og:url"]');
+    var itemPropUrl = findFirst($(pageHTML), '[itemprop=url]');
+    if(metaUrl.length)
+    {
+      GiftInfo.directLink = metaUrl.attr('content')
+    } else if (itemPropUrl.length) {
+      GiftInfo.directLink = itemPropUrl.attr('href') ? itemPropUrl.attr('href') : itemPropUrl.attr('content');
+    }
+
+    // Dig for Description
+    var metaDescription = findFirst($(pageHTML), '[property="og:description"]');
+    var itemPropDescription = findFirst($(pageHTML), '[itemprop=description]');
+    if(metaDescription.length)
+    {
+      GiftInfo.description = metaDescription.attr('content')
+    } else if (itemPropDescription.length) {
+      GiftInfo.description = itemPropDescription.text() ? itemPropDescription.text() : itemPropDescription.attr('content');
+    }
+
+    // Dig for Price
+    var metaPrice = findFirst($(pageHTML), '[property="og:price"]');
+    var itemPropPrice = findFirst($(pageHTML), '[itemprop=price]');
+    if(metaPrice.length)
+    {
+      GiftInfo.price = metaPrice.attr('content')
+    } else if (itemPropPrice.length) {
+      GiftInfo.price = itemPropPrice.text() ? itemPropPrice.text() : itemPropPrice.attr('content');
+    }
+
     // seperated this to it's own if
     // because there's a chance their website tags change
     // and we need to still grab info, if we can't find any the specified way.
-    if (GiftInfo.img.trim() == "") {
-        console.log("second attempt");
+    if (true) {
+
         var docImages = $(pageHTML).find('img');
         var index = 0;
         for (var i = 0; i < docImages.length; i++) {
@@ -129,7 +188,7 @@ function parseDirectLinkResponse(data) {
                         image.productName = image.title;
                     }
                     else {
-                        image.productName = "";
+                        image.productName = GiftInfo.productName;
                     }
                     GiftInfo.images.push(image);
 
@@ -141,15 +200,22 @@ function parseDirectLinkResponse(data) {
         if (GiftInfo.images.length >= 1) {
             var image = GiftInfo.images[0];
 
-            // grab the first one with a product name if possible.
-            // helps better the chances of guessing the right item on the first try.
-            for (var i = 0; i < GiftInfo.images.length; i++)
+            // if we were able to grab a reliable image use that
+            if(initialImage != "")
             {
-                if (GiftInfo.images[i].productName != "")
-                {
-                    image = GiftInfo.images[i];
-                    break;
-                }
+              image.src = initialImage;
+              image.productName = GiftInfo.productName;
+            } else {
+              // else grab the first one with a product name if possible.
+              // helps better the chances of guessing the right item on the first try.
+              for (var i = 0; i < GiftInfo.images.length; i++)
+              {
+                  if (GiftInfo.images[i].productName != "")
+                  {
+                      image = GiftInfo.images[i];
+                      break;
+                  }
+              }
             }
 
             GiftInfo.img = image.src;
@@ -167,13 +233,31 @@ function parseDirectLinkResponse(data) {
                 $('#rightArrow').removeClass('hide');
             }
         }
+        console.log('here');
 
-        if (GiftInfo.images.length <= 0) {
-            $('#errorFetching').modal('toggle');
+        // No image, and we haven't retried yet
+        if(!GiftInfo.images.length && !ForcedRetry)
+        {
+          ForcedRetry = true;
+          fetchDataFromUrl();
+        } else if(!GiftInfo.images.length && ForcedRetry) {
+          // still no image and we retried
+          ForcedRetry = false;
+
+          // no data at all :(
+          if (!GiftInfo.name  && !GiftInfo.price  && !GiftInfo.img  && !GiftInfo.description) {
+              $('#errorFetching').modal('toggle');
+          }
+
+        } else {
+          // this is a retry attempt, reset it to false for later.
+          ForcedRetry = false;
         }
+
     }
     loadGiftData();
     loadDisplayData();
+    $('.modal-backdrop').fadeOut();
     $('#fetchingData').modal('toggle');
 }
 
@@ -208,7 +292,7 @@ function leftClick() {
 
     var image = GiftInfo.images[index];
 
-    GiftInfo.productName = image.alt;
+    GiftInfo.productName = image.productName;
     GiftInfo.img = image.src;
     $('#imageURL').data('index', image.index);
 
@@ -229,11 +313,30 @@ function rightClick() {
 
     var image = GiftInfo.images[index];
 
-    GiftInfo.productName = image.alt;
+    GiftInfo.productName = image.productName;
     GiftInfo.img = image.src;
     $('#imageURL').data('index', image.index);
 
     loadGiftData();
     loadDisplayData();
+}
 
+// find selector is not reliable.
+function findFirst(elementArray, selector) {
+  var returnElement = [];
+  returnElement = $(elementArray).find(selector);
+
+  if(returnElement.length)
+  {
+    return $(returnElement);
+  }
+
+  elementArray.each(function(index, element) {
+      if ($(element).is(selector)) {
+        returnElement = element;
+        return;
+      }
+    });
+
+  return $(returnElement);
 }
