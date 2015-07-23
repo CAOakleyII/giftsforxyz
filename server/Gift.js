@@ -1,21 +1,42 @@
 
 Meteor.methods({
-  upVote: function(giftId){
-    
-    var gift =  Gifts.find({ _id : giftId });
-    
-    console.log("before any call: " + gift.upVotes);
+  vote: function(giftId, voteOption) {
+    var gift = Gifts.findOne({ _id: giftId });
+
+    if (isNaN(gift.downVotes))
+    {
+      gift.downVotes = 0;
+    }
     if (isNaN(gift.upVotes))
     {
-      gift.upVotes = 1;
-    } else {
-      console.log("incriment");
-      console.log("value before incriment:" + gift.upVotes);
-     gift.upVotes++; 
+      gift.upVotes = 0;
     }
-    
-    console.log(gift.upVotes);
-    
-    return Gifts.update({_id : giftId}, { $set : { upVotes : gift.upVotes } });
+
+    switch(voteOption.toLowerCase()){
+      case "clickupvote":
+        gift.upVotes++;
+        break;
+      case "clickdownvote":
+        gift.downVotes++;
+        break;
+      case "unclickupvote":
+        gift.upVotes--;
+        break;
+      case "unclickdownvote":
+        gift.downVotes--;
+        break;
+      case "switchupvote":
+        gift.upVotes++;
+        gift.downVotes--;
+        break;
+      case "switchdownvote":
+        gift.upVotes--;
+        gift.downVotes++;
+        break;
+    }
+
+    Gifts.update({_id : giftId}, gift);
+
+    return gift;
   }
 });

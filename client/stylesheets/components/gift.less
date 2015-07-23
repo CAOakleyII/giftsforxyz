@@ -80,15 +80,40 @@ div.card{
   i.up-vote
   {
     font-size:1.9rem;
-    color: @brand-color-blue;
+    color: black;
+    -webkit-text-fill-color:  white;
+    -webkit-text-stroke-color: @brand-color-blue;
+    -webkit-text-stroke-width: 2px;
     float: right;
     margin-right: 30px;
+
+      &:hover {
+        -webkit-text-fill-color: @brand-color-blue;
+      }
   }
   i.down-vote
   {
     font-size: 1.9rem;
-    color: @brand-color-red;
+    color: black;
+    -webkit-text-fill-color:  white;
+    -webkit-text-stroke-color: @brand-color-red;
+    -webkit-text-stroke-width: 2px;
     margin-left: 30px;
+    &:hover {
+      -webkit-text-fill-color: @brand-color-red;
+    }
+  }
+
+  i.up-vote-clicked
+  {
+    -webkit-text-fill-color: @brand-color-blue;
+    -webkit-text-stroke-width: 1px;
+  }
+
+  i.down-vote-clicked
+  {
+    -webkit-text-fill-color: @brand-color-red;
+    -webkit-text-stroke-width: 1px;
   }
 }
 
