@@ -19,21 +19,24 @@ nav.page-navbar {
             height:@navbar-height;
             border:0;
             font-size:2.4rem;
-
             &:focus {
                 outline:0;
+            }
+            @media (max-width: @screen-mid-min) {
+              width: 80%;
             }
         }
     }
 
 
     a.brand {
+        width: 100%;
         background-color:@navbar-brand-color;
         color:white;
-        padding:0px 20px;
+        padding:0;
     }
 
-    a.login {
+    a.add-gift {
         float:right;
         background-color:@navbar-login-color;
         color:white;
@@ -78,5 +81,6 @@ nav.page-navbar {
             }
         }
     }
-}
 
+
+}

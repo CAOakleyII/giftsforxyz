@@ -1,18 +1,43 @@
 <template name="navbar">
 	<nav class="page-navbar">
-        <a class="brand" href="/">
-            {{> logo }}
-        </a>
+		<div class="row no-gutters">
 
-		<div class="search">
-			<i class="fa fa-search"></i>
-			<input type="text" class="search" id="navSearch" placeholder="Outdoor Dad" />
+			<div class="col-xs-2">
+					<a class="brand hidden-xs hidden-sm" href="/">
+	            {{> logo }}
+	        </a>
+
+					<a class="brand hidden-md hidden-lg" href="/">
+						 {{> mobileLogo }}
+					</a>
+			</div>
+
+			<div class="col-xs-8 col-md-7">
+				<div class="search">
+					<div class="row">
+						<div class="col-xs-2">
+							<i class="fa fa-search"></i>
+						</div>
+						<div class="col-xs-10">
+							<input type="text" class="search" id="navSearch" placeholder="Runners" />
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-3 hidden-xs hidden-sm">
+				<a href="/Gifts/Create" class="add-gift">
+					<i class="fa fa-plus"></i> &nbsp; Add a Gift
+				</a>
+			</div>
+
+			<div class="col-xs-2 hidden-md hidden-lg">
+				<a href="/Gifts/Create" class="add-gift">
+						<i class="fa fa-plus"></i>
+				</a>
+			</div>
+
 		</div>
-
-		<a href="/Gifts/Create" class="login">
-			<i class="fa fa-plus"></i>
-			Add a Gift
-		</a>
 	</nav>
 	{{> subNavBar }}
 </template>
