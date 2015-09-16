@@ -1,7 +1,12 @@
 <template name="gifts">
     <div class="gifts-collection">
         {{#each gifts}}
+          {{#if currentUser}}
+            {{> gift_edit}}
+          {{/if}}
+          {{#else}}
             {{> gift}}
+          {{/else}}
         {{/each}}
     </div>
 </template>
