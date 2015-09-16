@@ -9,3 +9,7 @@ iron:router
 less
 altapp:recaptcha
 twbs:bootstrap
+accounts-password
+accounts-facebook
+accounts-ui
+alanning:roles
