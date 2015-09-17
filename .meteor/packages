@@ -10,5 +10,6 @@ less
 altapp:recaptcha
 twbs:bootstrap
 accounts-password
-accounts-ui
 alanning:roles
+ian:accounts-ui-bootstrap-3
+simple:reactive-method

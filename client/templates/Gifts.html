@@ -1,12 +1,14 @@
 <template name="gifts">
     <div class="gifts-collection">
+      <!-- two different loops, so that way is Admin isn't checked for each gift -->
+      {{#if isAdmin}}
         {{#each gifts}}
-          {{#if currentUser}}
-            {{> gift_edit}}
-          {{/if}}
-          {{#else}}
-            {{> gift}}
-          {{/else}}
+          {{> gift_edit}}
         {{/each}}
+      {{else}}
+        {{#each gifts}}
+            {{> gift}}
+          {{/each}}
+      {{/if}}
     </div>
 </template>

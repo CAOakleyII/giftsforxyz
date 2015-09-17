@@ -14,7 +14,7 @@ nav.page-sub-navbar {
         line-height: @sub_navbar-height;
         display:block;
         float:left;
-        font-family:'Roboto', sans-serif;
+        font-family: @brand-font;
         color:@sub_navbar-text-color;
 
         &:hover {
@@ -33,5 +33,14 @@ nav.page-sub-navbar {
           background-color:@brand-color-yellow;
           color:#fff;
         }
+    }
+
+    #login-dropdown-list {
+      list-style: none;
+    }
+    .dropdown-menu {
+      position: absolute;
+      left: 194px;
+      top: 40px;
     }
 }
