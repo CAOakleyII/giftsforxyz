@@ -38,5 +38,8 @@ Meteor.methods({
     Gifts.update({_id : giftId}, gift);
 
     return gift;
+  },
+  'updateGift': function(gift){
+    Gifts.update({_id : gift._id}, gift);
   }
 });

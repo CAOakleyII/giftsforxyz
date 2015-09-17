@@ -1,25 +1,22 @@
 <template name="gift_edit">
 
 
-    <div class="card gift-card">
-
+    <div class="card gift-card edit">
+      <form class="gift-edit">
         <div class="card-content">
             <!-- Display Image -->
-            <a href="{{directLink}} ">
-                <div class="card-image">
+            <input type="text" name="directLink" value="{{directLink}} ">
+            <div class="card-image">
 
-                        <img id="imageDisplay" src="{{imageUrl}}" alt="imageDisplay" class="gift-image" />
+                    <img id="imageDisplay" src="{{imageUrl}}" alt="imageDisplay" class="gift-image" />
 
-                        <!-- Display Name -->
-                        <div class="card-title">
-                            <label class="gift-name">
-                                <p id="nameDisplay">
-                                    Editable {{ name }}
-                                </p>
-                            </label>
-                        </div>
-                </div>
-            </a>
+                    <!-- Display Name -->
+                    <div class="card-title">
+                        <label class="gift-name">
+                            <input type="text" id="nameDisplay" name="name" value="{{name}}" />
+                        </label>
+                    </div>
+            </div>
 
             <div class="card-support-text">
                 <!-- Price -->
@@ -40,11 +37,8 @@
 
                 <!--  Tags -->
                 <div>
-                    <label id="tagsDisplay" class="gift-tags">
-                        {{#each tags}}
-                            <a href="/gifts/for/{{this}}" >#{{ this }}</a>
-                        {{/each}}
-                    </label>
+                  <input type="text" class="gift-tags" name="unparsedTags" value="{{unparsedTags}}"/>
+
                 </div>
             </div>
 
@@ -57,7 +51,11 @@
                         <i class="up-vote fa fa-arrow-up" id="{{_id}}" ></i>
                     </a>
             </div>
-        </div>
 
+            <div class="edit-actions">
+              <input type="submit" value="Save" name="save" class="btn btn-primary gift-edit" />
+            </div>
+        </div>
+      </form>
     </div>
 </template>
