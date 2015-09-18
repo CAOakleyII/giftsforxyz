@@ -1,5 +1,23 @@
 
 Meteor.methods({
+  createGift: function(gift, captchaData){
+    var verifyCaptchaResponse = reCAPTCHA.verifyCaptcha(this.connection.clientAddress, captchaData);
+
+    if (!verifyCaptchaResponse.success) {
+        console.log('reCAPTCHA check failed!', verifyCaptchaResponse);
+        throw new Meteor.Error(422, 'reCAPTCHA Failed: ' + verifyCaptchaResponse.error);
+    } else {
+        console.log('reCAPTCHA verification passed!');
+    }
+
+    return Gifts.insert(gift);
+  },
+  'updateGift': function(gift){
+    Gifts.update({_id : gift._id}, gift);
+  },
+  'deleteGift': function(gift){
+    Gifts.remove({_id: gift._id});
+  },
   vote: function(giftId, voteOption) {
     var gift = Gifts.findOne({ _id: giftId });
 
@@ -38,11 +56,5 @@ Meteor.methods({
     Gifts.update({_id : giftId}, gift);
 
     return gift;
-  },
-  'updateGift': function(gift){
-    Gifts.update({_id : gift._id}, gift);
-  },
-  'deleteGift': function(gift){
-    Gifts.remove({_id: gift._id});
   }
 });
