@@ -5,7 +5,9 @@
       <form class="gift-edit">
         <div class="card-content">
             <!-- Display Image -->
-            <input type="text" name="directLink" value="{{directLink}} ">
+            <input type="text" name="directLink" value="{{directLink}}" class="form-control">
+            <br />
+            <input type="text" name="imageUrl" value="{{imageUrl}}" class="imageUrlText form-control"/>
             <div class="card-image">
 
                     <img id="imageDisplay" src="{{imageUrl}}" alt="imageDisplay" class="gift-image" />
@@ -13,7 +15,7 @@
                     <!-- Display Name -->
                     <div class="card-title">
                         <label class="gift-name">
-                            <input type="text" id="nameDisplay" name="name" value="{{name}}" />
+                            <input type="text" id="nameDisplay" name="name" value="{{name}}" class="form-control"/>
                         </label>
                     </div>
             </div>
@@ -22,38 +24,32 @@
                 <!-- Price -->
                 <div>
                     <p>
-                        <label id="priceDisplay" class="gift-price">
-                        {{ priceFormated }}
-                        </label>
+                        <input type="text" name="price" value="{{price}}" id="priceDisplay" class="gift-price">
                     </p>
                 </div>
 
                 <!-- Description -->
                 <div class="gift-description">
-                    <label id="descriptionDisplay" class="gift-description">
-                        {{ description }}
-                    </label>
+                  <textarea type="description" cols="40" rows="5" name="description">
+                    {{ description }}
+                  </textarea>
                 </div>
 
                 <!--  Tags -->
                 <div>
-                  <input type="text" class="gift-tags" name="unparsedTags" value="{{unparsedTags}}"/>
+                  <input type="text" name="unparsedTags" value="{{unparsedTags}}" class="gift-tags form-control"/>
 
                 </div>
             </div>
 
             <div class="card-action">
-                    <a href="#">
-                        <i class="down-vote fa fa-arrow-down" id="{{_id}}" ></i>
-                    </a>
-
-                    <a href="#">
-                        <i class="up-vote fa fa-arrow-up" id="{{_id}}" ></i>
-                    </a>
+              <i class="down-vote fa fa-arrow-down">{{downVotes}}</i>
+              <i class="up-vote fa fa-arrow-up">{{upVotes}}</i>
             </div>
 
             <div class="edit-actions">
-              <input type="submit" value="Save" name="save" class="btn btn-primary gift-edit" />
+              <input type="submit" value="Save" name="save" class="btn btn-primary gift-edit gift-save" />
+              <input type="button" value="Delete" name="delete" class="btn btn-warning gift-delete" />
             </div>
         </div>
       </form>

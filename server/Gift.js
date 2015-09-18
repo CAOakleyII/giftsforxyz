@@ -41,5 +41,8 @@ Meteor.methods({
   },
   'updateGift': function(gift){
     Gifts.update({_id : gift._id}, gift);
+  },
+  'deleteGift': function(gift){
+    Gifts.remove({_id: gift._id});
   }
 });
