@@ -1,0 +1,33 @@
+@import "../variables.less";
+
+div.sort-by-container {
+  @media (min-width: @screen-md-min) {
+    border-bottom: 1px solid rgba(125, 125, 125, .1);
+  }
+}
+
+div.sort-by {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  @media (max-width: @screen-sm-max) {
+  border-bottom: 1px solid rgba(125, 125, 125, .2);
+  }
+
+  .dropdown {
+    display: inline-block;
+    &:hover{
+      cursor: pointer;
+
+    }
+  }
+
+    div.tags-header {
+      display: inline-block;
+
+    }
+
+    div.sort-by-header {
+      display: inline-block;
+    }
+
+}
