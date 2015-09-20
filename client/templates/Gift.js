@@ -27,10 +27,13 @@ Template.gift.onRendered(function(){
       var giftId = $(event.target).attr('id');
       vote($(event.target), giftId, 'upVote');
    },
-     'click .down-vote' : function(event) {
-       var giftId = $(event.target).attr('id');
-       vote($(event.target), giftId, 'downVote');
-     }
+   'click .down-vote' : function(event) {
+     var giftId = $(event.target).attr('id');
+     vote($(event.target), giftId, 'downVote');
+   },
+   'click .card-content .card-link': function(event){
+      ga('send', 'event', 'gift', 'follow gift');
+   }
  });
 
  /*
