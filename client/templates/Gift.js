@@ -32,7 +32,7 @@ Template.gift.onRendered(function(){
      vote($(event.target), giftId, 'downVote');
    },
    'click .card-content .card-link': function(event){
-      ga('send', 'event', 'gift', 'follow gift');
+      //ga('send', 'event', 'gift', 'follow gift');
    }
  });
 
