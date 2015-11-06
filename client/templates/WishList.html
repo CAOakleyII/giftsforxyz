@@ -1,16 +1,16 @@
 <template name="wishlist">
   <div class="gifts-collection">
-    {{#if gifts.length 0}}
+    {{#if gifts}}
+      <h2>Wishlist</h2>
+      {{#each gifts}}
+        {{> gift}}
+      {{/each}}      
+    {{else}}
       <div class="jumbotron">
         <h2>Wishlist</h2>
         <p>It looks like you have added no gifts to your wishlist. Adding gifts is easy! If you see a gift you want added to your wish list
           just select the heart icon on the bottom. </p>
       </div>
-    {{else}}
-      <h2>Wishlist</h2>
-      {{#each gifts}}
-        {{> gift}}
-      {{/each}}
     {{/if}}
   </div>
 </template>

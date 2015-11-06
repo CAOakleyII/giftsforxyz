@@ -33,8 +33,40 @@ Template.gift.onRendered(function(){
    },
    'click .card-content .card-link': function(event){
       //ga('send', 'event', 'gift', 'follow gift');
+   },
+   'click .addWishlist': function(event){
+      var user = Meteor.user();
+      if(!user){
+        return;
+      }
+      var giftDiv = $(event.target).closest('.card.gift-card');
+      var giftId = giftDiv.attr('gift-id');
+      if(giftId == null){
+        return;
+      }
+      
+      Meteor.call('addGiftToWishlist', giftId);
    }
  });
+
+ Template.gift.helpers({
+  'isInWishlist': function(){
+    var user = Meteor.user();
+    if(!user){
+      return false;
+    }
+
+    var alreadyFave = false;
+    for(var i = 0; i < user.wishlist.length; i++){
+      if(giftId == user.wishlist[i]){
+        alreadyFave = true;
+        break;
+      }
+    }
+
+    return alreadyFave;
+  }
+ })
 
  /*
  * Handles a vote made by a user.

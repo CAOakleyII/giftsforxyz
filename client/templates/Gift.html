@@ -1,7 +1,7 @@
 <template name="gift">
 
 
-    <div class="card gift-card">
+    <div class="card gift-card" gift-id="{{_id}}">
 
         <div class="card-content">
             <!-- Display Image -->
@@ -58,8 +58,12 @@
                     </a>
 
                     {{#if currentUser}}
-                      <span class="btn btn-default">
-                        <i class="icon-heart"></i>
+                        {{#if isInWishlist}}
+                            <span class="btn btn-default active addWishlist">
+                        {{#else}}
+                            <span class="btn btn-default addWishlist"> 
+                        {{/if}}
+                        <i class="fa fa-heart"></i>
                       </span>
                     {{/if}}
             </div>
