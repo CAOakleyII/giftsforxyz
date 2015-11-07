@@ -60,6 +60,7 @@ div.card{
     border-top: 1px solid @gift-content-border-color;
     height: 50px;
     padding-top: 15px;
+    text-align: center;
   }
 
   div.gift-description {
@@ -76,7 +77,15 @@ div.card{
   label.gift-description {
     color: @gift-supportive-text-color;
   }
-
+  
+  i.add-wishlist {
+    line-height: normal;
+  }
+  i.in-wishlist {
+    color: red;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
   i.up-vote
   {
     font-size:1.9rem;
@@ -93,6 +102,7 @@ div.card{
   }
   i.down-vote
   {
+    float: left;
     font-size: 1.9rem;
     color: black;
     -webkit-text-fill-color:  white;

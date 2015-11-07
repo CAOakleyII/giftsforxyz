@@ -3,7 +3,8 @@
  */
 Template.gift.onRendered(function(){
   var previousVote = localStorage.getItem(this.data._id + 'vote');
-
+  var user = Meteor.user();
+  
   // if there was a previous vote display that the user voted on it.
   if (previousVote)
   {
@@ -16,6 +17,17 @@ Template.gift.onRendered(function(){
         break;
     }
   }
+  
+  if(user){
+    for (var i = 0; i < user.wishlist.length; ++i){
+      var giftId = wishlist[i];
+      if (giftId == this.data._id) {
+        $(this.find('span.addWishlist')).addClass('in-wishlist');
+        break;
+      }
+    }
+  }
+  
 
 });
 
@@ -34,7 +46,7 @@ Template.gift.onRendered(function(){
    'click .card-content .card-link': function(event){
       //ga('send', 'event', 'gift', 'follow gift');
    },
-   'click .addWishlist': function(event){
+   'click .add-wishlist': function(event){
       var user = Meteor.user();
       if(!user){
         return;
@@ -44,29 +56,13 @@ Template.gift.onRendered(function(){
       if(giftId == null){
         return;
       }
-      
+      $(event.target).toggle('in-wishlist');
       Meteor.call('addGiftToWishlist', giftId);
    }
  });
 
  Template.gift.helpers({
-  'isInWishlist': function(){
-    var user = Meteor.user();
-    if(!user){
-      return false;
-    }
-
-    var alreadyFave = false;
-    for(var i = 0; i < user.wishlist.length; i++){
-      if(giftId == user.wishlist[i]){
-        alreadyFave = true;
-        break;
-      }
-    }
-
-    return alreadyFave;
-  }
- })
+ });
 
  /*
  * Handles a vote made by a user.
