@@ -18,17 +18,22 @@ Template.sortBy.helpers({
 
 
         var currentTagsCount = tagsCount[currentTag];
+        var currentTagAsObject = { name : currentTag };
 
-
-        if (popularTags.length < 3 && popularTags.indexOf(currentTag) < 0){
-          popularTags.push(currentTag);
+        if (popularTags.length < 3 && popularTags.indexOf(currentTagAsObject) < 0){
+          popularTags.push(currentTagAsObject);
         } else {
           var y = 0;
-          if (popularTags.indexOf(currentTag) < 0) {
-            y = popularTags.indexOf(currentTag);
+
+          // insertion sort
+          // if current tag already exist in popular tag.
+          // get that one, and see if it can be moved up anymore.
+          if (popularTags.indexOf(currentTagAsObject) < 0) {
+            y = popularTags.indexOf(currentTagAsObject);
           }
           for(y; y < popularTags.length; ++y){
             var popularTag = popularTags[y];
+            // if current tag is greater than that tag
             if(currentTagsCount > tagsCount[popularTag]) {
               var z = y;
               while(z > 0) {
@@ -43,14 +48,7 @@ Template.sortBy.helpers({
         }
       }
     });
-    tagsCount.sort();
-
-    var popularityLimit = 3;
-    var popIndex = 1;
-    while(popIndex <= popularityLimit){
-      popularTags.push(tagsCount.pop());
-      popIndex++;
-    }
-    return ["Tags"];
+    console.log(popularTags);
+    return popularTags;
   }
 });

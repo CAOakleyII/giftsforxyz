@@ -18,7 +18,7 @@ Template.gift.onRendered(function(){
     }
   }
 
-  if(user){
+  if(user && user.wishlist){
     for (var i = 0; i < user.wishlist.length; ++i){
       var giftId = user.wishlist[i];
       if (giftId == this.data._id) {
