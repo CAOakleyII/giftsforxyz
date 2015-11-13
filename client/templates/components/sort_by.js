@@ -1,10 +1,9 @@
 Template.sortBy.helpers({
 
   tags: function(){
-    var gifts = Gifts.find({});
     var tagsCount = [];
-    var popularTags = [];
-    gifts.forEach(function(gift){
+    var popularTags = [];    
+    this.gifts.forEach(function(gift){
 
 
       for(var x = 0; x < gift.tags.length; ++x) {
@@ -29,7 +28,7 @@ Template.sortBy.helpers({
           // if current tag already exist in popular tag.
           // get that one, and see if it can be moved up anymore.
           if (popularTags.indexOf(currentTagAsObject) < 0) {
-            y = popularTags.indexOf(currentTagAsObject);
+            y = popularTags.indexOf(currentTagAsObject) + 1;
           }
           for(y; y < popularTags.length; ++y){
             var popularTag = popularTags[y];
